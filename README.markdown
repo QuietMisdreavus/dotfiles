@@ -31,5 +31,5 @@ stow $HOSTNAME
 #run firefox first to create the default profile folder
 #(you'll also need to either download the images for the menu buttons or change the URLs to the ones
 #in the comments)
-cp firefox/userChrome.css ~/.mozilla/firefox/{profile folder}/chrome/
+ln -s $(pwd)/firefox/userChrome.css ~/.mozilla/firefox/{profile folder}/chrome/
 ```
