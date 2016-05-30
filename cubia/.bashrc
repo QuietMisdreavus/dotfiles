@@ -39,3 +39,10 @@ man() {
     LESS_TERMCAP_us=$'\E[04;38;5;146m' \
     man "$@"
 }
+
+_sticky() {
+	local arg;
+	arg=${COMP_WORDS[$COMP_CWORD]}
+	COMPREPLY=( $(compgen -W "$(ls ${XDG_DATA_HOME:-$HOME/.local/share}/sticky)" -- $arg) )
+}
+complete -F _sticky sticky visticky
