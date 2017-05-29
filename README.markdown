@@ -1,4 +1,4 @@
-# icesoldier's dotfiles
+# misdreavus's dotfiles
 
 Distribution and storage of some of my configuration files, especially for my laptop `cubia`.
 Machine-specific configuration (or things I didn't want to bother with merging) are in folders
@@ -23,7 +23,7 @@ link config files into their proper places. For example:
 
 ```sh
 cd ~
-git clone https://github.com/icesoldier/dotfiles
+git clone https://github.com/QuietMisdreavus/dotfiles
 cd dotfiles
 stow termite
 stow dunst
