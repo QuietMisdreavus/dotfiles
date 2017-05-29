@@ -7,6 +7,7 @@ matching their hostname.
 Computers represented:
 
 * `cubia` (MacBook Air, 11-inch, Arch Linux)
+* `shiva` (virtual server, Arch Linux, technically not its hostname any more)
 
 Programs represented:
 
