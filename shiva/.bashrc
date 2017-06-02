@@ -51,3 +51,6 @@ _sticky() {
     COMPREPLY=( $(compgen -W "$(ls ${XDG_DATA_HOME:-$HOME/.local/share}/sticky)" -- $arg) )
 }
 complete -F _sticky sticky visticky
+
+# these environment variables allow me to build old rust-openssl packages, if i install openssl-1.0
+export OPENSSL_LIB_DIR=/usr/lib/openssl-1.0 OPENSSL_INCLUDE_DIR=/usr/include/openssl-1.0
