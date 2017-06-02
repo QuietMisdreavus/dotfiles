@@ -164,7 +164,7 @@ channels = (
   { name = "#rust-infra"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#rust-bots"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#rust-offtopic"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "#rust-dev-tools"; chatnet = "Mozilla"; autojoin = "yes"; }
+  { name = "#rust-dev-tools"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#winapi"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#hyper"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#rust-music"; chatnet = "Mozilla"; autojoin = "yes"; },
@@ -172,7 +172,7 @@ channels = (
   { name = "#rust-common"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#dev"; chatnet = "Handmade"; autojoin = "yes"; },
   { name = "#random"; chatnet = "Handmade"; autojoin = "yes"; },
-  { name = "#hmn"; chatnet = "Handmade"; autojoin = "yes"; },
+  { name = "#hmn"; chatnet = "Handmade"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -329,6 +329,7 @@ aliases = {
   97 = "WINDOW GOTO 97";
   98 = "WINDOW GOTO 98";
   99 = "WINDOW GOTO 99";
+  noise = "me E_TOO_MANY_CONVERSATIONS";
 };
 
 statusbar = {
