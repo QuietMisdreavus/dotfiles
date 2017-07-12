@@ -167,9 +167,8 @@ channels = (
   { name = "#rust-dev-tools"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#winapi"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#hyper"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "#rust-music"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#misdreavus"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "#rust-common"; chatnet = "Mozilla"; autojoin = "yes"; },
+  { name = "#rust-music"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#dev"; chatnet = "Handmade"; autojoin = "yes"; },
   { name = "#random"; chatnet = "Handmade"; autojoin = "yes"; },
   { name = "#hmn"; chatnet = "Handmade"; autojoin = "yes"; }
@@ -448,7 +447,6 @@ hilights = (
   { text = "misdreavus"; nick = "yes"; word = "yes"; },
   { text = "quietmisdreavus"; nick = "yes"; word = "yes"; },
   { text = "egg-mode"; nick = "yes"; word = "yes"; },
-  { text = "twitter"; nick = "yes"; word = "yes"; },
   { text = "init_with"; nick = "yes"; word = "yes"; },
   { text = "synchronoise"; nick = "yes"; word = "yes"; }
 );
