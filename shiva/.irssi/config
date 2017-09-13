@@ -1,10 +1,13 @@
 servers = (
   { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
   { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
-  { 
+  {
     address = "chat.freenode.net";
     chatnet = "Freenode";
     port = "6667";
+    use_tls = "no";
+    tls_verify = "no";
+    autoconnect = "yes";
   },
   {
     address = "irc.gamesurge.net";
@@ -86,6 +89,7 @@ chatnets = {
   };
   Freenode = {
     type = "IRC";
+    nick = "QuietMisdreavus";
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";
@@ -169,9 +173,7 @@ channels = (
   { name = "#hyper"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#misdreavus"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#rust-music"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "#dev"; chatnet = "Handmade"; autojoin = "yes"; },
-  { name = "#random"; chatnet = "Handmade"; autojoin = "yes"; },
-  { name = "#hmn"; chatnet = "Handmade"; autojoin = "yes"; }
+  { name = "##lynn"; chatnet = "Freenode"; autojoin = "yes"; }
 );
 
 aliases = {

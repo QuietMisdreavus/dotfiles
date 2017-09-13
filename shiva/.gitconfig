@@ -1,3 +1,5 @@
 [user]
 	email = grey@quietmisdreavus.net
 	name = QuietMisdreavus
+[core]
+	excludesfile = ~/.gitignore
