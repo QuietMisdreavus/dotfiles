@@ -89,7 +89,8 @@ chatnets = {
   };
   Freenode = {
     type = "IRC";
-    nick = "QuietMisdreavus";
+    nick = "misdreavus";
+    autosendcmd = "^MSG NickServ identify uL^o0lZa6EIW1m&fHt$qI40FT";
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";
@@ -172,8 +173,9 @@ channels = (
   { name = "#winapi"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#hyper"; chatnet = "Mozilla"; autojoin = "yes"; },
   { name = "#misdreavus"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "#rust-music"; chatnet = "Mozilla"; autojoin = "yes"; },
-  { name = "##lynn"; chatnet = "Freenode"; autojoin = "yes"; }
+  { name = "##lynn"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#rustc"; chatnet = "Mozilla"; autojoin = "yes"; },
+  { name = "#rust-release"; chatnet = "Mozilla"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -331,6 +333,7 @@ aliases = {
   98 = "WINDOW GOTO 98";
   99 = "WINDOW GOTO 99";
   noise = "me E_TOO_MANY_CONVERSATIONS";
+  think = "/me . o O ( $* )";
 };
 
 statusbar = {
@@ -441,16 +444,22 @@ settings = {
     beep_msg_level = "MSGS NOTICES INVITES DCC DCCMSGS HILIGHT";
     show_nickmode_empty = "no";
     activity_hide_level = "JOINS PARTS QUITS NICKS MODES CLIENTCRAP CRAP";
+    autolog = "yes";
   };
   "irc/core" = { alternate_nick = "quietmisdreavus"; };
-  "perl/core/scripts" = { mh_userstatus_show_host = "no"; };
+  "perl/core/scripts" = {
+    mh_userstatus_show_host = "no";
+    logresume_channel_lines = "100";
+    logresume_query_lines = "50";
+  };
 };
 hilights = (
   { text = "misdreavus"; nick = "yes"; word = "yes"; },
   { text = "quietmisdreavus"; nick = "yes"; word = "yes"; },
   { text = "egg-mode"; nick = "yes"; word = "yes"; },
   { text = "init_with"; nick = "yes"; word = "yes"; },
-  { text = "synchronoise"; nick = "yes"; word = "yes"; }
+  { text = "synchronoise"; nick = "yes"; word = "yes"; },
+  { text = "GreyEm"; nick = "yes"; word = "yes"; }
 );
 logs = { };
 ignores = (
