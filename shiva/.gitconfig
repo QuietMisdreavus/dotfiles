@@ -3,3 +3,10 @@
 	name = QuietMisdreavus
 [core]
 	excludesfile = ~/.gitignore
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true
+	trustExitCode = true
+[mergetool]
+	trustExitCode = true
