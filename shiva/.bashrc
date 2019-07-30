@@ -7,11 +7,25 @@
 
 alias ls='ls --color=auto'
 
-# modestly colored PS1
+# prompt customization
 reset=$(tput sgr0)
 cyan=$(tput setaf 14)
 blue=$(tput setaf 12)
-PS1='[\[$cyan\]\u@\h\[$reset\] \[$blue\]\W\[$reset\]]\$ '
+red=$(tput setaf 9)
+
+function nonzero_return() {
+    RETVAL=$?
+    [ $RETVAL -ne 0 ] && echo " - $red$RETVAL$reset"
+}
+
+# use git's own PS1 utilities instead of rolling our own
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM='auto'
+export GIT_PS1_STATESEPARATOR=" "
+source ~/bin/git-prompt.sh
+
+export PS1="\n\[$cyan\]\d \T\[$reset\] - \[$blue\]\W\[$reset\]\$(__git_ps1 ' - %s')\`nonzero_return\`\n[\[$cyan\]\u@\h\[$reset\]]\\$ "
 
 # case-insensitive tab completion
 bind "set completion-ignore-case on"
