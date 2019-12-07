@@ -5,7 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+# colorized ls output
+alias ls='ls -G'
 
 # prompt customization
 reset=$(tput sgr0)
