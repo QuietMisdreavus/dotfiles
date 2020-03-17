@@ -37,4 +37,5 @@ stow cubia
 ln -s $(pwd)/firefox/userChrome.css ~/.mozilla/firefox/{profile folder}/chrome/
 ```
 
-Generally speaking, to import a system's configuration, all you should need is `stow some-folder`.
+Generally speaking, to import a system's configuration, all you should need is `stow --dotfiles
+some-folder`.
