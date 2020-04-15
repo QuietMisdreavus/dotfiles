@@ -32,8 +32,18 @@ source ~/bin/git-prompt.sh
 
 export PS1="\n\[$cyan\]\d \T\[$reset\] - \[$blue\]\W\[$reset\]\$(__git_ps1 ' - %s')\`nonzero_return\`\n[\[$cyan\]\u@\h\[$reset\]]\\$ "
 
+# don't ring the terminal bell for tab completion
+bind "set bell-style none"
+
 # case-insensitive tab completion
 bind "set completion-ignore-case on"
+
+# windows CMD-style tab completion: tab/shift-tab cycle forward/backward through completions
+bind "TAB:menu-complete"
+bind '"\e[Z":menu-complete-backward'
+
+# always show tab-complete list if more than one is available
+bind "set show-all-if-ambiguous on"
 
 # if you've used pushd to create a dir stack, this command cycles from the bottom
 alias rotd='pushd -0'
