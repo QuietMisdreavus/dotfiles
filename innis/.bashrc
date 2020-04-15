@@ -53,6 +53,6 @@ man() {
     man "$@"
 }
 
-export PATH="$HOME/.cargo/bin:$HOME/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/bin:$PATH"
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
