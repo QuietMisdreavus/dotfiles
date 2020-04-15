@@ -5,8 +5,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# colorized ls output
-alias ls='ls -G'
+if [ `which exa` ]; then
+    alias ls=exa
+    alias tree="exa --tree"
+else
+    alias ls="ls -G"
+fi
 
 # prompt customization
 reset=$(tput sgr0)
