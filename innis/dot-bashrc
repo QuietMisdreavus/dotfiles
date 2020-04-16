@@ -12,17 +12,19 @@ else
     alias ls="ls -G"
 fi
 
-# prompt customization
+# color codes used in prompt
 reset=$(tput sgr0)
 cyan=$(tput setaf 14)
 blue=$(tput setaf 12)
 red=$(tput setaf 9)
 
+# check if last exit code was nonzero and print it if so
 function nonzero_return() {
     RETVAL=$?
     [ $RETVAL -ne 0 ] && echo -n " - $red$RETVAL$reset"
 }
 
+# check dirs stack and background jobs and print if more than default
 function ps1_dirs_jobs() {
     DIRCOUNT=`dirs -p | wc -l`
     JOBCOUNT=`jobs | wc -l`
@@ -36,14 +38,23 @@ function ps1_dirs_jobs() {
     fi
 }
 
-# use git's own PS1 utilities instead of rolling our own
+# import git's prompt utilities
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM='auto'
 export GIT_PS1_STATESEPARATOR=" "
 source ~/bin/git-prompt.sh
 
-export PS1="\n\[$cyan\]\d \T\[$reset\] - \[$blue\]\W\[$reset\]\$(__git_ps1 ' - %s')\`nonzero_return\`\`ps1_dirs_jobs\`\n[\[$cyan\]\u@\h\[$reset\]]\\$ "
+# build up the PS1 prompt
+PS1=
+PS1+="\n\[$cyan\]\d \T\[$reset\]"   # current date/time
+PS1+=" - \[$blue\]\W\[$reset\]"     # current working dir
+PS1+="\$(__git_ps1 ' - %s')"        # git status, if applicable
+PS1+='`nonzero_return`'             # return code of last command, if not 0
+PS1+='`ps1_dirs_jobs`'              # counts of dirs stack / background jobs
+PS1+="\n[\[$cyan\]\u@\h\[$reset\]]" # [username@hostname]
+PS1+="\\$ "                         # $ character (# if root)
+export PS1
 
 # don't ring the terminal bell for tab completion
 bind "set bell-style none"
