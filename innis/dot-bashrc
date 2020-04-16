@@ -20,7 +20,20 @@ red=$(tput setaf 9)
 
 function nonzero_return() {
     RETVAL=$?
-    [ $RETVAL -ne 0 ] && echo " - $red$RETVAL$reset"
+    [ $RETVAL -ne 0 ] && echo -n " - $red$RETVAL$reset"
+}
+
+function ps1_dirs_jobs() {
+    DIRCOUNT=`dirs -p | wc -l`
+    JOBCOUNT=`jobs | wc -l`
+    PRINTSECTION=
+    [ $DIRCOUNT -gt 1 -o $JOBCOUNT -gt 0 ] && PRINTSECTION=yes
+    if [ $PRINTSECTION ] ; then
+        echo -n " -$cyan"
+        [ $DIRCOUNT -gt 1 ] && echo -n " dirs:${DIRCOUNT//[[:space:]]}"
+        [ $JOBCOUNT -gt 0 ] && echo -n " jobs:${JOBCOUNT//[[:space:]]}"
+        echo -n "$reset "
+    fi
 }
 
 # use git's own PS1 utilities instead of rolling our own
@@ -30,7 +43,7 @@ export GIT_PS1_SHOWUPSTREAM='auto'
 export GIT_PS1_STATESEPARATOR=" "
 source ~/bin/git-prompt.sh
 
-export PS1="\n\[$cyan\]\d \T\[$reset\] - \[$blue\]\W\[$reset\]\$(__git_ps1 ' - %s')\`nonzero_return\`\n[\[$cyan\]\u@\h\[$reset\]]\\$ "
+export PS1="\n\[$cyan\]\d \T\[$reset\] - \[$blue\]\W\[$reset\]\$(__git_ps1 ' - %s')\`nonzero_return\`\`ps1_dirs_jobs\`\n[\[$cyan\]\u@\h\[$reset\]]\\$ "
 
 # don't ring the terminal bell for tab completion
 bind "set bell-style none"
