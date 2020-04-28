@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [ ! -d "_drafts" ] ; then
+    echo "plz run in a blog repo, kthx."
+    exit 1
+fi
+
+if [ -z "`ls _drafts`" ] ; then
+    echo "there are no drafts to publish."
+    exit 1
+fi
+
+post=`ls -t _drafts | head -1`
+
+read -p "publish post $post? (Y/n) " -n 1 response
+echo ''
+
+if [ -z "$response" -o "${response,,}" = "y" ] ; then
+    post_date=`date +"%F"`
+    post_file="$post_date-$post"
+    mkdir -p _posts
+    mv "_drafts/$post" "_posts/$post_file"
+    echo "post published as $post_file"
+else
+    echo "please touch the post you want to publish so that it is the most-recently-edited file."
+    exit 1
+fi

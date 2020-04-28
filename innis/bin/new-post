@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+if [ ! -d "_drafts" ] ; then
+    echo "plz run in a blog repo, kthx."
+    exit 1
+fi
+
+read -p "title (leave blank to cancel): " title
+
+if [ -z "$title" ] ; then
+    exit 1
+fi
+
+slug=${title,,}
+slug=${slug//[[:space:]]/-}
+
+read -p "URL slug (default: $slug): " slug_in
+
+if [ -n "$slug_in" ] ; then
+    slug="$slug_in"
+fi
+
+read -p "category: " category
+
+read -p "description: " description
+
+filename="_drafts/$slug.markdown"
+
+cat > $filename <<TEMPLATE
+---
+layout: post
+title: $title
+description: $description
+categories: $category
+---
+TEMPLATE
+
+echo ''
+echo "draft created at $filename"
