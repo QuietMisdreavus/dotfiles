@@ -10,3 +10,7 @@
 	trustExitCode = true
 [mergetool]
 	trustExitCode = true
+[submodule]
+	recurse = true
+[alias]
+	rclone = clone --recursive --shallow-submodules
