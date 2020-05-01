@@ -1,5 +1,0 @@
-export PATH="${PATH}:${HOME}/bin"
-udiskie -anTF2 &
-compton -CGb --opacity-rule '90:class_i="termite"'
-~/.fehbg &
-owncloud &
