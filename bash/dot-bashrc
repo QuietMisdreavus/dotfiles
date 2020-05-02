@@ -63,6 +63,17 @@ if [ -d "$HOME/.cabal/bin" ] ; then
     export PATH="$HOME/.cabal/bin:$PATH"
 fi
 
+if which gem &> /dev/null ; then
+    oldifs=$IFS
+    IFS=:
+    for p in $(gem env gempath) ; do
+        if [[ "$p" =~ $HOME ]] ; then
+            export PATH="$p/bin:$PATH"
+        fi
+    done
+    IFS=$oldifs
+fi
+
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 
 # load extra scripts that have been placed by other dotfiles configurations
