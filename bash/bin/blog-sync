@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ] ; then
+    echo "usage: blog-sync host"
+    echo ""
+    echo "builds a jekyll blog in the current directory then pushes it to the given host as if it were a NFSN site"
+    exit 1
+fi
+
+if [ ! -d "_posts" ] ; then
+    echo "please run inside a jekyll directory, thx."
+    exit 1
+fi
+
+jekyll build && rsync -avz _site/ "$1:/home/public"
