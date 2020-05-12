@@ -5,6 +5,7 @@
 	excludesfile = ~/.gitignore
 [diff]
 	tool = vimdiff
+	algorithm = histogram
 [difftool]
 	prompt = true
 	trustExitCode = true
