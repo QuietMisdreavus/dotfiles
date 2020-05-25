@@ -14,4 +14,4 @@
 [submodule]
 	recurse = true
 [alias]
-	rclone = clone --recursive --shallow-submodules
+	rclone = clone --recursive
