@@ -48,7 +48,7 @@ man() {
     LESS_TERMCAP_ue=$'\E[0m' \
     LESS_TERMCAP_us=$'\E[04;38;5;146m' \
     MANWIDTH=$width \
-    command man "$@"
+    man "$@"
 }
 
 if [ -d "$HOME/bin" ] ; then
