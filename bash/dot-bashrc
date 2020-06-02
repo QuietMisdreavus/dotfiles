@@ -12,6 +12,12 @@ else
     alias ls="ls --color=auto"
 fi
 
+if which xsel &> /dev/null ; then
+    # pipe into/out of the X clipboard
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+fi
+
 # don't ring the terminal bell for tab completion
 bind "set bell-style none"
 
