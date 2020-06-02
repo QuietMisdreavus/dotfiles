@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+# vim: ft=bash
+
+pacupdates=$(/usr/bin/checkupdates | wc -l)
+
+if [ "$pacupdates" -gt 0 ] ; then
+    /usr/bin/notify-send "${pacupdates//[[:space:]]/} packages can be updated"
+fi
+
+if [ -x ~/.cargo/bin/qmaur ] ; then
+    aurupdates=$(~/.cargo/bin/qmaur checkupdates | wc -l)
+    if [ "$aurupdates" -gt 0 ] ; then
+        /usr/bin/notify-send "${aurupdates//[[:space:]]/} AUR packages can be updated"
+    fi
+fi

@@ -1,0 +1,6 @@
+[Unit]
+Description=System update checker
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/notify-updates
