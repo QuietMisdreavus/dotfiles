@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -d "_drafts" ] ; then
+if [ ! -d "_posts" ] ; then
     echo "plz run in a blog repo, kthx."
     exit 1
 fi
@@ -23,6 +23,8 @@ fi
 read -p "category: " category
 
 read -p "description: " description
+
+mkdir -p "_drafts"
 
 filename="_drafts/$slug.markdown"
 
