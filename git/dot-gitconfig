@@ -15,3 +15,6 @@
 	recurse = true
 [alias]
 	rclone = clone --recursive
+[fetch]
+	prune = true
+	pruneTags = true
