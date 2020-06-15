@@ -20,3 +20,5 @@
 	pruneTags = true
 [help]
 	autoCorrect = 30
+[pull]
+	rebase = true
