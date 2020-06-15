@@ -1,0 +1,10 @@
+# vim: ft=bash
+
+# completion function for my old "sticky" scripts: https://github.com/QuietMisdreavus/sticky
+
+_sticky() {
+    local arg;
+    arg=${COMP_WORDS[$COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "$(ls ${XDG_DATA_HOME:-$HOME/.local/share}/sticky)" -- $arg) )
+}
+complete -F _sticky sticky visticky
