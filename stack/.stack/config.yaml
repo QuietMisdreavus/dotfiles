@@ -13,7 +13,7 @@ templates:
 #    copyright:
     github-username: QuietMisdreavus
 
-default-template: simple
+default-template: github:QuietMisdreavus/simple
 
 # The following parameter specifies stack's output styles; STYLES is a
 # colon-delimited sequence of key=value, where 'key' is a style name and
