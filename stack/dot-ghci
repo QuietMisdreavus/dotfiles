@@ -1,0 +1,6 @@
+:set prompt "\nghci | %@ | %s\n > "
+:set prompt-cont "|> "
+
+:set +s
+:set +t
+:set +m
