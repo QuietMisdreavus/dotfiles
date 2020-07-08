@@ -12,4 +12,8 @@ if [ ! -d "_posts" ] ; then
     exit 1
 fi
 
-jekyll build && rsync -avz _site/ "$1:/home/public"
+if [ -f "Gemfile" ] ; then
+    bundle exec jekyll build && rsync -avz _site/ "$1:/home/public"
+else
+    jekyll build && rsync -avz _site/ "$1:/home/public"
+fi
