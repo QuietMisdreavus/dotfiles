@@ -1,0 +1,4 @@
+# set keychain as the ssh agent
+eval $(keychain --eval --quiet)
+
+# vim: ft=bash
