@@ -12,6 +12,7 @@ if [ -z "$title" ] ; then
 fi
 
 slug=${title,,}
+slug=${slug//[![:space:][:alnum:]]/}
 slug=${slug//[[:space:]]/-}
 
 read -p "URL slug (default: $slug): " slug_in
