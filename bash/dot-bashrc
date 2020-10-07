@@ -5,19 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-if which exa &> /dev/null ; then
-    alias ls=exa
-    alias tree="exa --tree"
-else
-    alias ls="ls --color=auto"
-fi
-
-if which xsel &> /dev/null ; then
-    # pipe into/out of the X clipboard
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
-fi
-
 # don't ring the terminal bell for tab completion
 bind "set bell-style none"
 
@@ -93,6 +80,19 @@ if [ -d "$bash_scripts" ] ; then
     while IFS= read -r -d '' f ; do
         source "$f"
     done < <(find -L "$bash_scripts" -type f -perm -0700 -print0)
+fi
+
+if which exa &> /dev/null ; then
+    alias ls=exa
+    alias tree="exa --tree"
+else
+    alias ls="ls --color=auto"
+fi
+
+if which xsel &> /dev/null ; then
+    # pipe into/out of the X clipboard
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
 fi
 
 # vim: ft=bash
