@@ -1,3 +1,4 @@
 *.swp
 tags
 session.vim
+.DS_Store
