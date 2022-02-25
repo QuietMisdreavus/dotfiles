@@ -6,6 +6,7 @@
 [diff]
 	tool = vimdiff
 	algorithm = histogram
+        wordregex = ([[:alpha:]][[:lower:][:digit:]]*|[[:punct:]]|[[:upper:]][[:upper:][:digit:]]*|[[:digit:]]+)
 [difftool]
 	prompt = true
 	trustExitCode = true
