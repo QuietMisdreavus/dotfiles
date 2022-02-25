@@ -26,12 +26,34 @@ function ps1_dirs_jobs() {
     fi
 }
 
+function set_start_time() {
+    date +'%s' > /tmp/misdreavus/timestamp.$$
+}
+
+function print_cmd_time() {
+    if [ -f /tmp/misdreavus/timestamp.$$ ] ; then
+        CMD_START="$(cat /tmp/misdreavus/timestamp.$$)"
+        CMD_END="$(date +'%s')"
+        DURATION=$(($CMD_END - $CMD_START))
+        if [ "$DURATION" -ge 5 ] ; then
+            echo -n " -$red "
+            printf 'took %02d:%02d:%02d' $(($DURATION/3600)) $(($DURATION%3600/60)) $(($DURATION%60))
+            echo -n "$reset"
+        fi
+        rm -f /tmp/misdreavus/timestamp.$$
+    fi
+}
+
 # import git's prompt utilities
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM='auto'
 export GIT_PS1_STATESEPARATOR=" "
 source ~/bin/git-prompt.sh
+
+mkdir -p /tmp/misdreavus
+
+export PS0='$(set_start_time)'
 
 # build up the PS1 prompt
 PS1=
@@ -41,6 +63,7 @@ PS1+=" - \[$blue\]\W\[$reset\]"     # current working dir
 PS1+="\$(__git_ps1 ' - %s')"        # git status, if applicable
 PS1+='$(nonzero_return)'            # return code of last command, if not 0
 PS1+='$(ps1_dirs_jobs)'             # counts of dirs stack / background jobs
+PS1+='$(print_cmd_time)'            # print duration of long-running commands
 PS1+="\n"                           # put the prompt itself on a separate line
 PS1+="[\[$cyan\]\u@\h\[$reset\]]"   # [username@hostname]
 PS1+="\\$ "                         # $ character (# if root)
