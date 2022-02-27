@@ -1,0 +1,57 @@
+# misdreavus' custom zsh prompt
+# adapted from my bash prompt in February 2022
+
+# run command substitution in the prompt
+setopt prompt_subst
+
+# import git's prompt utilities
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM='auto'
+export GIT_PS1_STATESEPARATOR=" "
+source ~/bin/git-prompt.sh
+
+# check dirs stack and print if more than default
+function prompt_dirs() {
+    DIRCOUNT=$(dirs -p | wc -l)
+    if [[ "$DIRCOUNT" -gt 1 ]] ; then
+        print -nP " - %F{cyan}dirs:${DIRCOUNT//[[:space:]]}%f"
+    fi
+}
+
+function set_start_time() {
+    date +'%s' > /tmp/misdreavus/timestamp.$$
+}
+
+preexec_functions=(set_start_time $preexec_functions)
+
+function print_cmd_time() {
+    if [[ -f /tmp/misdreavus/timestamp.$$ ]] ; then
+        CMD_START="$(cat /tmp/misdreavus/timestamp.$$)"
+        CMD_END="$(date +'%s')"
+        DURATION=$((CMD_END - CMD_START))
+        if [[ "$DURATION" -ge 5 ]] ; then
+            print -nP " - %F{red}"
+            printf 'took %02d:%02d:%02d' $(($DURATION/3600)) $(($DURATION%3600/60)) $(($DURATION%60))
+            print -nP "%f"
+        fi
+        rm -f /tmp/misdreavus/timestamp.$$
+    fi
+}
+
+mkdir -p /tmp/misdreavus
+
+PROMPT=
+PROMPT+=$'\n'                              # start with a blank line
+PROMPT+="%F{cyan}%D{%a %b %d %I:%M:%S}%f"  # current date/time
+PROMPT+=" - %F{blue}%1~%f"                 # current working dir
+PROMPT+="\$(__git_ps1 ' - %s')"            # git status, if applicable
+PROMPT+="%(0?.. - %F{red}%?%f)"            # return code of last command, if not 0
+PROMPT+='$(prompt_dirs)'                   # number of dirs in dir stack
+PROMPT+="%(1j. - %F{cyan}jobs:%j%f.)"      # number of background jobs
+PROMPT+='$(print_cmd_time)'                # duration of long-running commands
+PROMPT+=$'\n'                              # put the prompt itself on a separate line
+PROMPT+="[%F{cyan}%n@%m%f]"                # [username@hostname]
+PROMPT+="%# "                              # % character (# if root)
+
+# vim: ft=zsh

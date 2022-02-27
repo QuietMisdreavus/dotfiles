@@ -1,0 +1,108 @@
+# misdreavus's zshrc
+# adapted from my bashrc in February 2022
+
+# set up completion engine so the next few configs can mess with it
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+
+# don't ring the terminal bell, pls
+setopt nobeep
+
+# even though vim is my editor, use emacs line editing
+bindkey -e
+
+# case-insensitive tab-completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# insert the first tab-completion option immediately
+setopt menucomplete
+
+# windows CMD-style tab completion: tab/shift-tab cycle forward/backward through completions
+bindkey -M menuselect 'TAB' expand-or-complete
+bindkey -M menuselect '\e[Z' reverse-menu-complete
+
+# if you've used pushd to create a dir stack, this command cycles from the bottom
+alias rotd='pushd -0'
+
+export VISUAL=vim
+export EDITOR=$VISUAL
+
+# read man pages at 100 columns max
+export MANWIDTH=100
+
+# color highlighting for man pages; from ArchWiki "man page"
+man() {
+    # if the width of the current term is less than $MANWIDTH, use that instead
+    width=$(tput cols)
+    [ "$width" -gt "$MANWIDTH" ] && width=$MANWIDTH
+
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    MANWIDTH=$width \
+    man "$@"
+}
+
+# deduplicate paths in $PATH and $path array
+typeset -U PATH path
+
+if [[ -d "$HOME/.local/bin" ]] ; then
+    path=("$HOME/.local/bin" $path)
+fi
+
+if [[ -d "$HOME/bin" ]] ; then
+    path=("$HOME/bin" $path)
+fi
+
+if [[ -d "$HOME/.cargo/bin" ]] ; then
+    path=("$HOME/.cargo/bin" $path)
+fi
+
+if [[ -d "$HOME/.cabal/bin" ]] ; then
+    path=("$HOME/.cabal/bin" $path)
+fi
+
+if which gem &> /dev/null ; then
+    oldifs=$IFS
+    IFS=:
+    for p in $(gem env gempath) ; do
+        if [[ "$p" =~ $HOME ]] ; then
+            path=("$p/bin" $path)
+        fi
+    done
+    IFS=$oldifs
+fi
+
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME-"$HOME/.config"}
+
+if which exa &> /dev/null ; then
+    alias ls=exa
+    alias tree="exa --tree"
+else
+    alias ls="ls --color=auto"
+fi
+
+if which xsel &> /dev/null ; then
+    # pipe into/out of the X clipboard
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+fi
+
+# load extra scripts that have been placed by other dotfiles configurations
+bonus_scripts="$XDG_CONFIG_HOME/misdreavus/zshrc.d"
+if [[ -d "$bonus_scripts" ]] ; then
+    # source any executable file under the misdreavus scripts folder
+    while IFS= read -r -d '' f ; do
+        source "$f"
+    done < <(find -L "$bonus_scripts" -type f -perm -0700 -print0)
+fi
+
+# now that we've messed with our PATH (including in other scripts), export it
+export PATH
+
+# vim: ft=zsh
