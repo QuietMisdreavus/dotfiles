@@ -1,0 +1,8 @@
+# i can't/don't want to modify the system zshrc on macos, so this loads the zsh completion files
+# installed by homebrew
+if which brew &> /dev/null ; then
+    fpath=("$(brew --prefix)/share/zsh-completions" $fpath)
+
+    autoload -Uz compinit
+    compinit
+fi
