@@ -10,8 +10,8 @@ fi
 setsdk=no
 if [[ "$SDKROOT" ]] ; then setsdk=yes ; fi
 oldsdk="$SDKROOT"
-if [[ -d "/Library/Developer/CommandLineTools" ]] ; then
-    export SDKROOT="$(find /Library/Developer/CommandLineTools -type d -iname 'mac*.sdk' | sort | tail -1)"
+if [[ -d "/Library/Developer/CommandLineTools/SDKs" ]] ; then
+    export SDKROOT="$(find /Library/Developer/CommandLineTools/SDKs -maxdepth 1 -type d -iname 'mac*.sdk' | sort | tail -1)"
 fi
 
 # set up completion engine so the next few configs can mess with it
