@@ -1,8 +1,21 @@
 # misdreavus's zshrc
 # adapted from my bashrc in February 2022
 
+# if ZSH_DEBUGRC=YES, start profiling the script
+if [[ "$ZSH_DEBUGRC" == "YES" ]] ; then
+    zmodload zsh/zprof
+fi
+
+# on macos setting SDKROOT to the command-line tools makes tools like ruby skip the xcrun cache
+setsdk=no
+if [[ "$SDKROOT" ]] ; then setsdk=yes ; fi
+oldsdk="$SDKROOT"
+if [[ -d "/Library/Developer/CommandLineTools" ]] ; then
+    export SDKROOT="$(find /Library/Developer/CommandLineTools -type d -iname 'mac*.sdk' | sort | tail -1)"
+fi
+
 # set up completion engine so the next few configs can mess with it
-autoload -Uz compinit && compinit
+autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
@@ -104,5 +117,20 @@ fi
 
 # now that we've messed with our PATH (including in other scripts), export it
 export PATH
+
+# defer compinit until now because some bonus scripts messed with the comp path
+compinit
+
+# if we messed with SDKROOT earlier, set it back
+if [[ "$setsdk" == "yes" ]] ; then
+    export SDKROOT="$oldsdk"
+else
+    unset SDKROOT
+fi
+
+# if we're profiling the startup scripts, print the profile now
+if [[ "$ZSH_DEBUGRC" == "YES" ]] ; then
+    zprof
+fi
 
 # vim: ft=zsh

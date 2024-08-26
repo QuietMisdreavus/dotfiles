@@ -2,7 +2,4 @@
 # installed by homebrew
 if which brew &> /dev/null ; then
     fpath=("$(brew --prefix)/share/zsh-completions" $fpath)
-
-    autoload -Uz compinit
-    compinit
 fi
