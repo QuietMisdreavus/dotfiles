@@ -4,12 +4,16 @@
 [core]
 	excludesfile = ~/.gitignore
 [diff]
-	tool = vimdiff
+	tool = difftastic
+	guitool = gvimdiff
 	algorithm = histogram
-        wordregex = ([[:alpha:]][[:lower:][:digit:]]*|[[:punct:]]|[[:upper:]][[:upper:][:digit:]]*|[[:digit:]]+)
+	wordregex = ([[:alpha:]][[:lower:][:digit:]]*|[[:punct:]]|[[:upper:]][[:upper:][:digit:]]*|[[:digit:]]+)
 [difftool]
-	prompt = true
+	prompt = false
 	trustExitCode = true
+	guiDefault = true
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 [mergetool]
 	trustExitCode = true
 [submodule]
@@ -18,7 +22,6 @@
 	rclone = clone --recursive
 [fetch]
 	prune = true
-	pruneTags = true
 [help]
 	autoCorrect = 30
 [pull]
@@ -30,3 +33,5 @@
 	smudge = git-lfs smudge -- %f
 [init]
 	defaultBranch = main
+[push]
+	default = current
