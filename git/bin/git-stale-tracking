@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# git stale-tracking: print names of branches that have had their remote tracking branches deleted
+# pass --fetch to run 'git fetch --prune' beforehand
+
+if [[ "$1" == "--prune" ]] ; then
+    git fetch --prune --quiet
+fi
+
+git_dir="$(git rev-parse --git-dir)"
+
+for branch in $(git for-each-ref --format='%(refname:short)&%(upstream)' refs/heads) ; do
+    our_b="$(echo $branch | cut -d'&' -f1)"
+    remote_ref="$(echo $branch | cut -d '&' -f2)"
+
+    if ! [[ -f "$git_dir/$remote_ref" ]] ; then
+        echo "$our_b"
+    fi
+done
+
+# vim: ft=bash

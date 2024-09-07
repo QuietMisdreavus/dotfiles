@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]] ; then
+    echo "usage: git ff [remote] branch"
+    echo "if remote is not given, the branch's configured remote is used"
+    echo "if the branch doesn't have a configured remote, 'origin' is used"
+    exit 1
+fi
+
+if [[ $# -eq 1 ]] ; then
+    branch="$1"
+    remote="$(git config --get "branch.$branch.remote")"
+    if [[ -z "$remote" ]] ; then
+        remote=origin
+    fi
+else
+    remote="$1"
+    branch="$2"
+fi
+
+git fetch "$remote" "$branch":"$branch"
