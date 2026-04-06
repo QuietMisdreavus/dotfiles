@@ -35,6 +35,14 @@ setopt menucomplete
 bindkey -M menuselect 'TAB' expand-or-complete
 bindkey -M menuselect '\e[Z' reverse-menu-complete
 
+# set defaults for the history file, since apparently zsh doesn't do this itself
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=20000
+export SAVEHIST=10000
+
+# save history commands immediately and load them in other sessions
+setopt share_history
+
 # if you've used pushd to create a dir stack, this command cycles from the bottom
 alias rotd='pushd -0'
 
